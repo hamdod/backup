@@ -13,4 +13,69 @@ Find the smallest prime which, by replacing part of the number
 
 from three import PrimeFactors
 
-for i in range
+
+"len prime factos = 1 means prime number"
+
+def subsets(x):
+    if x==0:
+        return [ [] ]
+    else:
+        returner = []
+        for i in subsets(x-1):
+            returner.append(i)
+            returner.append(i+[x-1])
+    return returner
+
+def anti_subset(subset, length_of_set):
+    returner = []
+    for i in range(length_of_set):
+        if i not in subset:
+            returner.append(i)
+    return returner
+
+def anti_subsets(x):
+    returner = []
+    for i in subsets(x):
+        returner.append(anti_subset(i,x))
+    return returner
+
+
+
+a = True
+x = 2
+while a:
+    print(x)
+    s = subsets(x)
+    ass = anti_subsets(x)
+    for i in range(len(s)):
+        number = [0]*x
+        if len(s[i]) !=0 and len(s[i])!=x:
+            for j in range(10**len(s[i])):
+                sj = [int(p) for p in str(j)]
+                for l in range(len(s[i])-len(sj)):
+                    sj = [0]+sj
+                m = 0
+                for n in s[i]:
+                    number[n] = sj[m]
+                    m+=1
+                counter = 0
+                for k in range(10):
+                    for n in ass[i]:
+                        number[n]=k
+                    for p in range(len(number)):
+                        number[p] = str(number[p])
+                    if len(PrimeFactors(int("".join(number))))==1 and number[0] != "0" and number[0] != 0:
+                        counter+=1
+                if counter==8:
+                    for k in range(10):
+                        for n in ass[i]:
+                            number[n]=k
+                        for p in range(len(number)):
+                            number[p] = str(number[p])
+                        if len(PrimeFactors(int("".join(number))))==1 and number[0] != "0" and number[0] != 0:
+                            abcd = "".join(number)
+                            print(abcd, end = ", ")
+                    print()
+    if x==10:
+        a = False
+    x+=1

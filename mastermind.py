@@ -246,14 +246,16 @@ while k==True:
 			print("Name"+" "*(longest_name-4)+" Gues  Col  Len  Date")
 			i=0
 			counter=0
+			printed_hawks=[]
 			while i<len(list_of_hawks):
 				entry=list_of_hawks[i]
-				if str(entry.length)==str(code_length) and str(entry.colours)==str(colours) and counter<20:
+				if str(entry.length)==str(code_length) and str(entry.colours)==str(colours) and counter<20 and entry.name not in printed_hawks:
 					print(entry.name+" "*(longest_name-len(entry.name)),end="")
 					printos(entry.guesses)
 					printos(entry.colours)
 					printos(entry.length)
 					print("  "+entry.date)
+					printed_hawks.append(entry.name)
 					counter+=1
 				i+=1
 			print("\n\n\n")
